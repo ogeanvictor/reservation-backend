@@ -64,4 +64,9 @@ export class DeskRepository implements DeskRepositoryInterface {
   ): Promise<DeskCreateUpdateResponseDto> {
     return await this.prisma.desk.update({ where: { id }, data: body });
   }
+
+  async delete(id: string): Promise<string> {
+    await this.prisma.desk.delete({ where: { id } });
+    return `Mesa ${id} deletada com sucesso!`;
+  }
 }

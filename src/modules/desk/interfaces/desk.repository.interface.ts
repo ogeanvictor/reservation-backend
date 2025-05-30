@@ -11,4 +11,5 @@ export abstract class DeskRepositoryInterface {
     id: string,
     body: DeskUpdateDto,
   ): Promise<DeskCreateUpdateResponseDto>;
+  abstract delete(id: string): Promise<string>;
 }

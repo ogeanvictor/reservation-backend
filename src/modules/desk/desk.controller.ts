@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 
 import { UserRole } from '@prisma/client';
 
@@ -28,5 +37,11 @@ export class DeskController {
   @Put(':id')
   async update(@Param('id') id: string, @Body() body: DeskUpdateDto) {
     return await this.service.update(id, body);
+  }
+
+  @Roles(UserRole.ADMIN)
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return await this.service.delete(id);
   }
 }

@@ -48,4 +48,16 @@ export class DeskService {
       throw error;
     }
   }
+
+  async delete(id: string): Promise<string> {
+    try {
+      const desk: string = await this.repository.delete(id);
+      return desk;
+    } catch (error: any) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException('Mesa não encontrada.');
+      }
+      throw error;
+    }
+  }
 }
