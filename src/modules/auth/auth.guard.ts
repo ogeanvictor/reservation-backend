@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
         secret: jwtConstanst.secret,
       });
 
-      request['user'] = payload;
+      request.user = payload;
     } catch {
       throw new UnauthorizedException();
     }

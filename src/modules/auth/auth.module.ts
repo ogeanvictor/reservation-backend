@@ -9,6 +9,7 @@ import { jwtConstanst } from './constants';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { AuthController } from './auth.controller';
+import { RolesGuard } from './roles.guard';
 
 @Module({
   imports: [
@@ -25,6 +26,10 @@ import { AuthController } from './auth.controller';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
