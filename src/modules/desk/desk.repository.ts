@@ -6,16 +6,17 @@ import { PrismaService } from 'src/config/database.service';
 
 import { DeskRepositoryInterface } from './interfaces/desk.repository.interface';
 
-import { DeskCreateResponseDto } from './dtos/desk-create-response.dto';
+import { DeskCreateUpdateResponseDto } from './dtos/desk-create-response.dto';
 import { DeskCreateDto } from './dtos/desk-create.dto';
 import { DeskListResponse } from './dtos/desk-list-response.dto';
+import { DeskUpdateDto } from './dtos/desk-update.dto';
 import { ListQueryDto } from 'src/common/dtos/list-query.dto';
 
 @Injectable()
 export class DeskRepository implements DeskRepositoryInterface {
   constructor(private prisma: PrismaService) {}
 
-  async create(body: DeskCreateDto): Promise<DeskCreateResponseDto> {
+  async create(body: DeskCreateDto): Promise<DeskCreateUpdateResponseDto> {
     return await this.prisma.desk.create({ data: body });
   }
 
@@ -55,5 +56,12 @@ export class DeskRepository implements DeskRepositoryInterface {
       desks,
       total,
     };
+  }
+
+  async update(
+    id: string,
+    body: DeskUpdateDto,
+  ): Promise<DeskCreateUpdateResponseDto> {
+    return await this.prisma.desk.update({ where: { id }, data: body });
   }
 }
