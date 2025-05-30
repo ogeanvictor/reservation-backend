@@ -6,6 +6,7 @@ import { UserRepositoryInterface } from './interface/user.repository.interface';
 
 import { UserRegisterResponseDto } from './dtos/user-register-response.dto';
 import { UserRegisterDto } from './dtos/user-register.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -17,6 +18,12 @@ export class UserRepository implements UserRepositoryInterface {
       omit: {
         password: true,
       },
+    });
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.prisma.user.findUnique({
+      where: { email: email },
     });
   }
 }
