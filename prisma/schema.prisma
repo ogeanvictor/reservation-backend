@@ -23,7 +23,22 @@ model User {
   updatedAt DateTime @default(now())
 }
 
+model Desk {
+  id        String     @id @default(uuid())
+  name      String
+  quantity  Int
+  status    DeskStatus
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+}
+
 enum UserRole {
   CLIENT
   ADMIN
+}
+
+enum DeskStatus {
+  AVAILABLE
+  RESERVED
+  DISABLED
 }
