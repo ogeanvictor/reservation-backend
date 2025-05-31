@@ -14,22 +14,36 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      UserRole
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id          String        @id @default(uuid())
+  name        String
+  email       String        @unique
+  password    String
+  role        UserRole
+  reservation Reservation[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
 }
 
 model Desk {
-  id        String     @id @default(uuid())
-  name      String
-  quantity  Int
-  status    DeskStatus
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now())
+  id          String        @id @default(uuid())
+  name        String
+  quantity    Int
+  status      DeskStatus
+  reservation Reservation[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+}
+
+model Reservation {
+  id        String            @id @default(uuid())
+  date      DateTime
+  status    ReservationStatus
+  User      User?             @relation(fields: [userId], references: [id])
+  userId    String?
+  Desk      Desk?             @relation(fields: [deskId], references: [id])
+  deskId    String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @default(now())
 }
 
 enum UserRole {
@@ -40,5 +54,10 @@ enum UserRole {
 enum DeskStatus {
   AVAILABLE
   RESERVED
+  DISABLED
+}
+
+enum ReservationStatus {
+  ENABLED
   DISABLED
 }
