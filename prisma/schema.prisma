@@ -37,10 +37,11 @@ model Desk {
 model Reservation {
   id        String            @id @default(uuid())
   date      DateTime
-  status    ReservationStatus
-  User      User?             @relation(fields: [userId], references: [id])
+  status    ReservationStatus @default(ENABLED)
+  quantity  Int
+  user      User?             @relation(fields: [userId], references: [id])
   userId    String?
-  Desk      Desk?             @relation(fields: [deskId], references: [id])
+  desk      Desk?             @relation(fields: [deskId], references: [id])
   deskId    String?
   createdAt DateTime          @default(now())
   updatedAt DateTime          @default(now())
