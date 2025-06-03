@@ -8,5 +8,6 @@ import { DeskRepository } from './desk.repository';
   imports: [],
   controllers: [DeskController],
   providers: [DeskService, DeskRepository],
+  exports: [DeskRepository],
 })
 export class DeskModule {}

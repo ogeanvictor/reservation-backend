@@ -58,6 +58,10 @@ export class DeskRepository implements DeskRepositoryInterface {
     };
   }
 
+  async findById(id: string): Promise<Desk | null> {
+    return await this.prisma.desk.findUnique({ where: { id } });
+  }
+
   async update(
     id: string,
     body: DeskUpdateDto,
