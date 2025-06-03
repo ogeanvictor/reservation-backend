@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { Desk, Prisma } from '@prisma/client';
+import { Desk, DeskStatus, Prisma } from '@prisma/client';
 
 import { PrismaService } from 'src/config/database.service';
 
@@ -67,6 +67,13 @@ export class DeskRepository implements DeskRepositoryInterface {
     body: DeskUpdateDto,
   ): Promise<DeskCreateUpdateResponseDto> {
     return await this.prisma.desk.update({ where: { id }, data: body });
+  }
+
+  async changeStatus(id: string, status: DeskStatus): Promise<Desk> {
+    return await this.prisma.desk.update({
+      where: { id },
+      data: { status: status },
+    });
   }
 
   async delete(id: string): Promise<string> {

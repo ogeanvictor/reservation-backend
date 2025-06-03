@@ -3,7 +3,7 @@ import { DeskCreateUpdateResponseDto } from '../dtos/desk-create-response.dto';
 import { DeskCreateDto } from '../dtos/desk-create.dto';
 import { DeskListResponse } from '../dtos/desk-list-response.dto';
 import { DeskUpdateDto } from '../dtos/desk-update.dto';
-import { Desk } from '@prisma/client';
+import { Desk, DeskStatus } from '@prisma/client';
 
 export abstract class DeskRepositoryInterface {
   abstract create(body: DeskCreateDto): Promise<DeskCreateUpdateResponseDto>;
@@ -13,5 +13,6 @@ export abstract class DeskRepositoryInterface {
     id: string,
     body: DeskUpdateDto,
   ): Promise<DeskCreateUpdateResponseDto>;
+  abstract changeStatus(id: string, status: DeskStatus): Promise<Desk>;
   abstract delete(id: string): Promise<string>;
 }
