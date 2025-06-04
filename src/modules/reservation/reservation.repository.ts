@@ -6,7 +6,9 @@ import { ReservationRepositoryInterface } from './interfaces/reservation.reposit
 
 import { ReservationCreateUpdateResponse } from './dtos/reservation-create-update-response.dto';
 import { ReservationCreateDto } from './dtos/reservation-create.dto';
-import { Reservation } from '@prisma/client';
+import { Prisma, Reservation } from '@prisma/client';
+import { ListQueryDto } from 'src/common/dtos/list-query.dto';
+import { ReservationListResponse } from './dtos/reservation-list-response.dto';
 
 @Injectable()
 export class ReservationRepository implements ReservationRepositoryInterface {
@@ -27,6 +29,46 @@ export class ReservationRepository implements ReservationRepositoryInterface {
         },
       },
     });
+  }
+
+  async findAll(queryParams: ListQueryDto): Promise<ReservationListResponse> {
+    const {
+      page = 0,
+      itemsPerPage = 20,
+      query,
+      filter,
+      sortBy = 'createdAt',
+      sortOrder = 'DESC',
+    } = queryParams;
+
+    const allowedFilters = ['date'];
+
+    const whereParams: Prisma.ReservationWhereInput = {};
+
+    if (filter && query && allowedFilters.includes(filter)) {
+      whereParams[filter] = {
+        contains: query,
+        mode: Prisma.QueryMode.insensitive,
+      };
+    }
+
+    const reservations: Reservation[] = await this.prisma.reservation.findMany({
+      where: whereParams,
+      skip: page * itemsPerPage,
+      take: itemsPerPage,
+      orderBy: {
+        [sortBy]: sortOrder.toLocaleLowerCase(),
+      },
+    });
+
+    const total: number = await this.prisma.reservation.count({
+      where: whereParams,
+    });
+
+    return {
+      reservations,
+      total,
+    };
   }
 
   async findWhereDate(deskId: string, date: Date): Promise<Reservation[]> {

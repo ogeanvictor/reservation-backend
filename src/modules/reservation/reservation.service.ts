@@ -10,6 +10,8 @@ import { DeskRepository } from '../desk/desk.repository';
 
 import { ReservationCreateDto } from './dtos/reservation-create.dto';
 import { ReservationCreateUpdateResponse } from './dtos/reservation-create-update-response.dto';
+import { ReservationListResponse } from './dtos/reservation-list-response.dto';
+import { ListQueryDto } from 'src/common/dtos/list-query.dto';
 
 @Injectable()
 export class ReservationService {
@@ -51,6 +53,16 @@ export class ReservationService {
       await this.deskRepository.changeStatus(body.deskId, DeskStatus.RESERVED);
 
       return await this.repository.create(body);
+    } catch (error: any) {
+      throw error;
+    }
+  }
+
+  async findAll(query: ListQueryDto): Promise<ReservationListResponse> {
+    try {
+      const reservations: ReservationListResponse =
+        await this.repository.findAll(query);
+      return reservations;
     } catch (error: any) {
       throw error;
     }
