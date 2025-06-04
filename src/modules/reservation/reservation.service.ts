@@ -67,4 +67,14 @@ export class ReservationService {
       throw error;
     }
   }
+
+  async findByUser(userId: string): Promise<ReservationListResponse> {
+    try {
+      const reservations: ReservationListResponse =
+        await this.repository.findByUser(userId);
+      return reservations;
+    } catch (error: any) {
+      throw error;
+    }
+  }
 }

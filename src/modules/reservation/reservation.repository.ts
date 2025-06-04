@@ -71,6 +71,21 @@ export class ReservationRepository implements ReservationRepositoryInterface {
     };
   }
 
+  async findByUser(userId: string): Promise<ReservationListResponse> {
+    const reservations: Reservation[] = await this.prisma.reservation.findMany({
+      where: { userId },
+    });
+
+    const total: number = await this.prisma.reservation.count({
+      where: { userId },
+    });
+
+    return {
+      reservations,
+      total,
+    };
+  }
+
   async findWhereDate(deskId: string, date: Date): Promise<Reservation[]> {
     return await this.prisma.reservation.findMany({
       where: { deskId, AND: { date: new Date(date) } },

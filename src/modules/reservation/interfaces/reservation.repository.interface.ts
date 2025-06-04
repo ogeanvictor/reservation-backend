@@ -9,5 +9,6 @@ export abstract class ReservationRepositoryInterface {
     body: ReservationCreateDto,
   ): Promise<ReservationCreateUpdateResponse>;
   abstract findAll(query: ListQueryDto): Promise<ReservationListResponse>;
+  abstract findByUser(userId: string): Promise<ReservationListResponse>;
   abstract findWhereDate(desk: string, date: Date): Promise<Reservation[]>;
 }
