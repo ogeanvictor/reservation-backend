@@ -12,6 +12,11 @@ export class UserService {
 
   async register(body: UserRegisterDto): Promise<UserRegisterResponseDto> {
     try {
+      const userExist = await this.repository.findByEmail(body.email);
+      if (userExist) {
+        throw new ConflictException('Usuário com e-mail já cadastrado.');
+      }
+
       const hashPassword: string = bcrypt.hashSync(body.password, 10);
       const user = await this.repository.register({
         ...body,
@@ -20,9 +25,6 @@ export class UserService {
 
       return user;
     } catch (error: any) {
-      if (error.code === 'P2002') {
-        throw new ConflictException('Usuário com e-mail já cadastrado.');
-      }
       throw error;
     }
   }
