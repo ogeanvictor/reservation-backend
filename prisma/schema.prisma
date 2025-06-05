@@ -40,9 +40,9 @@ model Reservation {
   status    ReservationStatus @default(ENABLED)
   quantity  Int
   user      User?             @relation(fields: [userId], references: [id])
-  userId    String?
+  userId    String
   desk      Desk?             @relation(fields: [deskId], references: [id])
-  deskId    String?
+  deskId    String
   createdAt DateTime          @default(now())
   updatedAt DateTime          @default(now())
 }
