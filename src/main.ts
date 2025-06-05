@@ -12,6 +12,14 @@ async function bootstrap() {
     .setTitle('Reservation Backend')
     .setDescription('The reservation backend API documentation')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

@@ -1,4 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
 import { Public } from 'src/common/interceptors/auth.metadata';
@@ -10,6 +11,11 @@ import { UserRegisterResponseDto } from './dtos/user-register-response.dto';
 export class UserController {
   constructor(private service: UserService) {}
 
+  @ApiCreatedResponse({
+    description: 'Register successfully.',
+    type: UserRegisterResponseDto,
+  })
+  @ApiBadRequestResponse({ description: 'Invalid input data.' })
   @Public()
   @Post('register')
   async register(
