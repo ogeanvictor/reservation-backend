@@ -1,4 +1,5 @@
 import { Reservation } from '@prisma/client';
+
 import { ReservationCreateUpdateResponse } from '../dtos/reservation-create-update-response.dto';
 import { ReservationCreateDto } from '../dtos/reservation-create.dto';
 import { ListQueryDto } from 'src/common/dtos/list-query.dto';
@@ -10,5 +11,9 @@ export abstract class ReservationRepositoryInterface {
   ): Promise<ReservationCreateUpdateResponse>;
   abstract findAll(query: ListQueryDto): Promise<ReservationListResponse>;
   abstract findByUser(userId: string): Promise<ReservationListResponse>;
+  abstract cancelReservation(
+    id: string,
+    userId: string,
+  ): Promise<Reservation | void>;
   abstract findWhereDate(desk: string, date: Date): Promise<Reservation[]>;
 }

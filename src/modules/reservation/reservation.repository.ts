@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
+import { Prisma, Reservation, ReservationStatus } from '@prisma/client';
 import { PrismaService } from 'src/config/database.service';
 
 import { ReservationRepositoryInterface } from './interfaces/reservation.repository.interface';
 
 import { ReservationCreateUpdateResponse } from './dtos/reservation-create-update-response.dto';
 import { ReservationCreateDto } from './dtos/reservation-create.dto';
-import { Prisma, Reservation } from '@prisma/client';
 import { ListQueryDto } from 'src/common/dtos/list-query.dto';
 import { ReservationListResponse } from './dtos/reservation-list-response.dto';
 
@@ -84,6 +84,23 @@ export class ReservationRepository implements ReservationRepositoryInterface {
       reservations,
       total,
     };
+  }
+
+  async cancelReservation(
+    id: string,
+    userId: string,
+  ): Promise<Reservation | void> {
+    const reservation: Reservation | null =
+      await this.prisma.reservation.findUnique({
+        where: { id, AND: { userId } },
+      });
+
+    if (reservation) {
+      return await this.prisma.reservation.update({
+        where: { id: reservation?.id },
+        data: { status: ReservationStatus.DISABLED },
+      });
+    }
   }
 
   async findWhereDate(deskId: string, date: Date): Promise<Reservation[]> {

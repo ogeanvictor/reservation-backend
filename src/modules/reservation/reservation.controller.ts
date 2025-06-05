@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  Patch,
   Post,
   Query,
   Req,
@@ -44,5 +46,14 @@ export class ReservationController {
   async findByUser(@Req() req: Request): Promise<ReservationListResponse> {
     const user = req.user as { id: string };
     return await this.service.findByUser(user.id);
+  }
+
+  @Patch(':id/cancel')
+  async cancelReservation(
+    @Param('id') id: string,
+    @Req() req: Request,
+  ): Promise<ReservationCreateUpdateResponse> {
+    const user = req.user as { id: string };
+    return await this.service.cancelReservation(id, user.id);
   }
 }

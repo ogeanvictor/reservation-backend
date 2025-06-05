@@ -77,4 +77,24 @@ export class ReservationService {
       throw error;
     }
   }
+
+  async cancelReservation(id: string, userId: string): Promise<Reservation> {
+    try {
+      const reservation: Reservation | void =
+        await this.repository.cancelReservation(id, userId);
+
+      if (!reservation) {
+        throw new ConflictException('Cancelamento não permitido!');
+      }
+
+      await this.deskRepository.changeStatus(
+        reservation.deskId,
+        DeskStatus.AVAILABLE,
+      );
+
+      return reservation;
+    } catch (error: any) {
+      throw error;
+    }
+  }
 }
