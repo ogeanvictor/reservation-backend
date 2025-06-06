@@ -55,20 +55,18 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('User Register', () => {
-    it('should be able to register a new user', async () => {
-      const newUser: UserRegisterDto = {
-        name: 'Test User',
-        email: 'test@example.com',
-        role: 'ADMIN',
-        password: '123456',
-      };
+  it('should be able to register a new user', async () => {
+    const newUser: UserRegisterDto = {
+      name: 'Test User',
+      email: 'test@example.com',
+      role: 'ADMIN',
+      password: '123456',
+    };
 
-      userRepository.register.mockResolvedValueOnce(mockUserResponse);
+    userRepository.register.mockResolvedValueOnce(mockUserResponse);
 
-      const result = await service.register(newUser);
-      expect(result).toEqual(mockUserResponse);
-    });
+    const result = await service.register(newUser);
+    expect(result).toEqual(mockUserResponse);
   });
 
   it('should not be able to register a new user with email duplicated', async () => {
