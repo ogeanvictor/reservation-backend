@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
 import { AuthService } from './auth.service';
-import { Public } from 'src/common/interceptors/auth.metadata';
+import { Public } from '../../common/interceptors/auth.metadata';
 
 import { AuthLoginDto } from './dtos/auth-login.dto';
 import { AuthLoginResponse } from './dtos/auth-login-response.dto';

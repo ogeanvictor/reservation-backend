@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConflictException } from '@nestjs/common';
 
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
 import { UserRegisterResponseDto } from './dtos/user-register-response.dto';
 import { UserRegisterDto } from './dtos/user-register.dto';
-import { ConflictException } from '@nestjs/common';
 
 describe('UserController', () => {
   let controller: UserController;
