@@ -17,10 +17,10 @@ import {
 import { UserRole } from '@prisma/client';
 
 import { DeskService } from './desk.service';
-import { Roles } from 'src/common/interceptors/role.decorator';
+import { Roles } from '../../common/interceptors/role.decorator';
 
 import { DeskCreateDto } from './dtos/desk-create.dto';
-import { ListQueryDto } from 'src/common/dtos/list-query.dto';
+import { ListQueryDto } from '../../common/dtos/list-query.dto';
 import { DeskUpdateDto } from './dtos/desk-update.dto';
 import { DeskCreateUpdateResponseDto } from './dtos/desk-create-response.dto';
 import { DeskListResponse } from './dtos/desk-list-response.dto';

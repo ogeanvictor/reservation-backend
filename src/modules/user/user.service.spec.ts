@@ -10,7 +10,7 @@ import { UserRegisterDto } from './dtos/user-register.dto';
 
 describe('UserService', () => {
   let service: UserService;
-  let userRepository: jest.Mocked<UserRepository>;
+  let repository: jest.Mocked<UserRepository>;
 
   const mockUser: User = {
     id: '2dbd1a40-6c9c-4158-a8e9-6efecfe348b9',
@@ -48,7 +48,7 @@ describe('UserService', () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
-    userRepository = module.get(UserRepository) as jest.Mocked<UserRepository>;
+    repository = module.get(UserRepository) as jest.Mocked<UserRepository>;
   });
 
   it('should be defined', () => {
@@ -63,14 +63,14 @@ describe('UserService', () => {
       password: '123456',
     };
 
-    userRepository.register.mockResolvedValueOnce(mockUserResponse);
+    repository.register.mockResolvedValueOnce(mockUserResponse);
 
     const result = await service.register(newUser);
     expect(result).toEqual(mockUserResponse);
   });
 
   it('should not be able to register a new user with email duplicated', async () => {
-    userRepository.findByEmail.mockResolvedValue({
+    repository.findByEmail.mockResolvedValue({
       id: '2dbd1a40-6c9c-4158-a8e9-6efecfe348b9',
       email: 'existing@email.com',
     } as User);
@@ -79,9 +79,7 @@ describe('UserService', () => {
       service.register({ email: 'existing@email.com' } as UserRegisterDto),
     ).rejects.toThrow('Usuário com e-mail já cadastrado.');
 
-    expect(userRepository.findByEmail).toHaveBeenCalledWith(
-      'existing@email.com',
-    );
-    expect(userRepository.register).not.toHaveBeenCalled();
+    expect(repository.findByEmail).toHaveBeenCalledWith('existing@email.com');
+    expect(repository.register).not.toHaveBeenCalled();
   });
 });

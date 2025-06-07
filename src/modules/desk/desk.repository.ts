@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Desk, DeskStatus, Prisma } from '@prisma/client';
 
-import { PrismaService } from 'src/config/database.service';
+import { PrismaService } from '../../config/database.service';
 
 import { DeskRepositoryInterface } from './interfaces/desk.repository.interface';
 
