@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { Prisma, Reservation, ReservationStatus } from '@prisma/client';
-import { PrismaService } from 'src/config/database.service';
+import { PrismaService } from '../../config/database.service';
 
 import { ReservationRepositoryInterface } from './interfaces/reservation.repository.interface';
 
