@@ -8,7 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
-import { IS_PUBLIC_KEY } from 'src/common/interceptors/auth.metadata';
+import { IS_PUBLIC_KEY } from '../../common/interceptors/auth.metadata';
 import { jwtConstanst } from './constants';
 
 @Injectable()

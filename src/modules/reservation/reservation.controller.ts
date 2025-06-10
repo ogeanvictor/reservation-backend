@@ -19,12 +19,12 @@ import {
 import { UserRole } from '@prisma/client';
 
 import { ReservationService } from './reservation.service';
-import { Roles } from 'src/common/interceptors/role.decorator';
+import { Roles } from '../../common/interceptors/role.decorator';
 import { AuthGuard } from '../auth/auth.guard';
 
 import { ReservationCreateDto } from './dtos/reservation-create.dto';
 import { ReservationCreateUpdateResponse } from './dtos/reservation-create-update-response.dto';
-import { ListQueryDto } from 'src/common/dtos/list-query.dto';
+import { ListQueryDto } from '../../common/dtos/list-query.dto';
 import { ReservationListResponse } from './dtos/reservation-list-response.dto';
 
 @ApiBearerAuth('access-token')
