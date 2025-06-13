@@ -16,6 +16,17 @@ services:
     volumes:
       - pgdata:/data/postgres
 
+  backend:
+    container_name: backend
+    build: .
+    restart: always
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - database
+    env_file:
+      - .env
+
 volumes:
   pgdata: 
     driver: local
