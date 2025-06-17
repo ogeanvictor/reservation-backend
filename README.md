@@ -43,3 +43,20 @@ API RESTful desenvolvida com **NestJS** para gerenciamento de **reservas de mesa
 git clone https://github.com/seu-usuario/nome-do-projeto.git
 cd nome-do-projeto
 ```
+
+### 2. Instalar dependências
+
+yarn install
+
+### 3. Criar arquivo .env
+
+DATABASE_URL="postgresql://user:password@localhost:5432/db_name?schema=public"
+JWT_SECRET="sua_chave_jwt"
+
+### 4. Rode a migration
+
+npx prisma migrate dev
+
+### 4. Execute o projeto
+
+yarn start:dev
