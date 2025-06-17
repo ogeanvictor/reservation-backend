@@ -57,6 +57,6 @@ JWT_SECRET="sua_chave_jwt"
 
 npx prisma migrate dev
 
-### 4. Execute o projeto
+### 5. Execute o projeto
 
 yarn start:dev
